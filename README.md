@@ -56,6 +56,23 @@ INSERT INTO carro (timestamp_cadastro, ano, combustivel, num_portas, cor, modelo
 VALUES (1696535432, 1993, 'DIESEL', 4, 'AZUL', 3);
 ```
 
+## Tecnologias Utilizadas
+
+O projeto foi desenvolvido com as seguintes tecnologias:
+
+- **Java 17** → linguagem principal do projeto.
+- **Spring Boot 3.5.6** → framework para inicialização rápida e configuração simplificada da aplicação.
+- **Spring Web (spring-boot-starter-web)** → criação dos endpoints REST.
+- **Spring Data JPA** → abstração para acesso e persistência de dados.
+- **Spring Security** → gerenciamento de autenticação e autorização, integrado com JWT.
+- **JWT (Java JSON Web Token - io.jsonwebtoken)** → usado para autenticação stateless da API.
+- **H2 Database** → banco de dados em memória para testes locais, dispensando configuração externa.
+- **Swagger / OpenAPI (springdoc-openapi)** → documentação interativa da API acessível em `/swagger-ui.html`.
+- **JUnit & Spring Security Test** → framework de testes unitários e de integração.
+
+Essas escolhas permitem que o sistema seja **modular, escalável, seguro e fácil de testar**.
+
+
 ## Decisões do Projeto
 
 - **Chaves primárias auto incrementáveis:** simplificam inserções.
@@ -64,9 +81,35 @@ VALUES (1696535432, 1993, 'DIESEL', 4, 'AZUL', 3);
 - **Valores FIPE e exemplos reais:** facilita testes e validação de dados.
 - **Organização do SQL:** primeiro marcas, depois modelos e por último carros, evitando erros de chave estrangeira.
 
+## Segurança da API
+
+A aplicação utiliza **Spring Security** com autenticação baseada em **JWT (JSON Web Token)**.
+- O usuário faz login no endpoint `/auth/login`, recebendo um token JWT.
+- Esse token deve ser enviado no **header** das requisições subsequentes:
+   Authorization: Bearer <seu_token>
+- Endpoints de autenticação (`/auth/**`), documentação (`/swagger-ui/**`, `/v3/api-docs/**`) e console H2 estão liberados sem token.
+- Todos os demais endpoints exigem autenticação JWT.
+- O gerenciamento de sessão é **stateless**, garantindo escalabilidade e segurança.
+
+### Usuário de teste
+- **Usuário:** `admin`
+- **Senha:** `123456`
+
+---
+
+## Configuração de CORS
+
+Foi configurado o **CORS** para permitir que um frontend (ex: React, Next.js) consuma a API sem problemas de origem cruzada.
+
+- A origem permitida é definida na propriedade:
+
+```properties
+app.cors.allowed-origin=http://localhost:3000
+```
+
 ## Como Executar e Testar a API
 
-1. Acesse a documentação da API via Swagger: [/swagger-ui.html](/swagger-ui.html)
+1. Acesse a documentação da API via Swagger: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 2. Para testes, utilize o usuário de acesso:
     - **Usuário:** `admin`
     - **Senha:** `123456`
