@@ -7,6 +7,7 @@ import com.wswork.apiVeiculos.service.MarcaService;
 import com.wswork.apiVeiculos.service.ModeloService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,8 @@ public class ModeloController {
 
     @PostMapping
     public ResponseEntity<Modelo> create(@RequestBody Modelo modelo) {
-        return ResponseEntity.ok(modeloService.save(modelo));
+        Modelo salva = modeloService.save(modelo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
     @PutMapping("/{id}")

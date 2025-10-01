@@ -5,6 +5,7 @@ import com.wswork.apiVeiculos.entity.Carro;
 import com.wswork.apiVeiculos.repository.CarroRepository;
 import com.wswork.apiVeiculos.service.CarroService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -35,7 +36,8 @@ public class CarroController {
 
     @PostMapping
     public ResponseEntity<Carro> create(@RequestBody Carro carro) {
-        return ResponseEntity.ok(carroService.save(carro));
+        Carro carroSalvo = carroService.save(carro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(carroSalvo);
     }
 
     @PutMapping("/{id}")

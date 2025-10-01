@@ -5,6 +5,7 @@ import com.wswork.apiVeiculos.entity.Marca;
 import com.wswork.apiVeiculos.service.MarcaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,8 @@ public class MarcaController {
 
     @PostMapping
     public ResponseEntity<Marca> create(@RequestBody Marca marca) {
-        return ResponseEntity.ok(marcaService.save(marca));
+        Marca salva = marcaService.save(marca);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
     @PutMapping("/{id}")
