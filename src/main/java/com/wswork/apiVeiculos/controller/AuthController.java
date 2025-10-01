@@ -1,6 +1,7 @@
 package com.wswork.apiVeiculos.controller;
 
 import com.wswork.apiVeiculos.security.JwtUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Login", description = "Geração do Token de autenticação")
 public class AuthController {
 
     private final AuthenticationManager authManager;
