@@ -1,10 +1,10 @@
 package com.wswork.apiVeiculos.controller;
 
 import com.wswork.apiVeiculos.security.JwtUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -28,8 +28,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(username);
             return Map.of("token", token);
         } catch (AuthenticationException e) {
-            throw new RuntimeException("Credenciais inválidas");
+            throw e;
         }
     }
 }
-
