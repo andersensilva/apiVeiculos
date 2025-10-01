@@ -114,3 +114,15 @@ app.cors.allowed-origin=http://localhost:3000
     - **Usuário:** `admin`
     - **Senha:** `123456`
 3. A partir do Swagger, é possível testar todos os endpoints de `marca`, `modelo` e `carro`, incluindo consultas, criação, atualização e exclusão.
+
+
+## Testes
+
+O projeto possui testes unitários e de integração utilizando **JUnit 5** e **MockMvc**, garantindo o correto funcionamento das APIs REST.
+
+### Como rodar os testes
+
+Se estiver usando Maven:
+
+```bash
+mvn test
