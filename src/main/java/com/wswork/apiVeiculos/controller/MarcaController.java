@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/marca")
@@ -31,6 +33,14 @@ public class MarcaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/check")
+    public Map<String, Object> checkVinculos(@PathVariable Long id) {
+        long count = marcaService.countModelosVinculados(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("modelosVinculados", count);
+        return response;
+    }
+
     @PostMapping
     public ResponseEntity<Marca> create(@RequestBody Marca marca) {
         Marca salva = marcaService.save(marca);
@@ -48,8 +58,10 @@ public class MarcaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        marcaService.delete(id);
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "false") boolean cascade) {
+        marcaService.delete(id, cascade);
         return ResponseEntity.noContent().build();
     }
 }

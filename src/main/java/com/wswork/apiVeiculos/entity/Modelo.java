@@ -11,7 +11,7 @@ public class Modelo {
     private String nome;
     private Double valor_fipe;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "marca_id")
     private Marca marca;
 

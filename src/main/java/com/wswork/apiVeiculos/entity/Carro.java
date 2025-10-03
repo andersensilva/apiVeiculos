@@ -15,7 +15,7 @@ public class Carro {
     private Integer num_portas;
     private String cor;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "modelo_id")
     private Modelo modelo;
 

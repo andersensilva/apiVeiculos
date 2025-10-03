@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/carros-detalhes")
+@RequestMapping("/api/carros-detalhes")
 @Tag(name = "Carros Detalhados", description = "Traz Descrição, Marca, e Modelo dos veiculos")
 public class CarroConsultaController {
 

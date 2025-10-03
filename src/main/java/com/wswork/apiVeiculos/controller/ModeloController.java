@@ -33,6 +33,12 @@ public class ModeloController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/check-carros")
+    public ResponseEntity<Long> checkCarrosVinculados(@PathVariable Long id) {
+        long count = modeloService.countCarrosVinculados(id);
+        return ResponseEntity.ok(count);
+    }
+
     @PostMapping
     public ResponseEntity<Modelo> create(@RequestBody Modelo modelo) {
         Modelo salva = modeloService.save(modelo);
@@ -50,8 +56,9 @@ public class ModeloController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        modeloService.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id,
+                                       @RequestParam(defaultValue = "false") boolean cascade) {
+        modeloService.delete(id, cascade);
         return ResponseEntity.noContent().build();
     }
 }
