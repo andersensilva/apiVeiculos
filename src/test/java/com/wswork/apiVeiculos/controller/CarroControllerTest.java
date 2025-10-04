@@ -27,21 +27,22 @@ public class CarroControllerTest {
     })
     void deveCriarCarro() throws Exception {
         String json = """
-            {
-                "ano": 2022,
-                "combustivel": "FLEX",
-                "numPortas": 4,
-                "cor": "PRATA",
-                "modeloId": 1,
-                "timestampCadastro": 1696539488
-            }
-            """;
+                    {
+                      "ano": 2025,
+                      "numPortas": 4,
+                      "cor": "Preto",
+                      "combustivel": "Flex",
+                      "modelo": {
+                        "id": 1
+                      }
+                    }
+                """;
 
         mockMvc.perform(post("/api/carros")
                         .contentType("application/json")
                         .content(json))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.cor").value("PRATA"));
+                .andExpect(jsonPath("$.cor").value("Preto"));
     }
 
     // --------------------------
@@ -72,15 +73,16 @@ public class CarroControllerTest {
     })
     void deveAtualizarCarro() throws Exception {
         String json = """
-            {
-                "ano": 2023,
-                "combustivel": "GASOLINA",
-                "numPortas": 4,
-                "cor": "AZUL",
-                "modeloId": 1,
-                "timestampCadastro": 1696539488
-            }
-            """;
+                    {
+                      "ano": 2025,
+                      "numPortas": 4,
+                      "cor": "AZUL",
+                      "combustivel": "Flex",
+                      "modelo": {
+                        "id": 1
+                      }
+                    }
+                """;
 
         mockMvc.perform(put("/api/carros/1")
                         .contentType("application/json")
